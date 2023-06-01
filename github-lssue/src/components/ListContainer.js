@@ -10,6 +10,7 @@ import styles from "./ListContainer.module.css";
 
 export default function ListContainer() {
   const [inputValue, setInputValue] = useState("is:issue is:open");
+  const [list, setList] = useState([]);
 
   // useEffect(() => {
   //   console.log(inputValue);
@@ -31,61 +32,77 @@ export default function ListContainer() {
       </div>
       <OpenClosedFilters />
       <ListItemLayout className={styles.listFilter}>
-        <ListFilter />
+        <ListFilter
+          onChangeFilter={(filteredData) => {
+            //필터링된 요소에 맞게 데이터를 불러오기
+            // const data = getData('필터링된 정보')
+            // setList(data)
+          }}
+        />
       </ListItemLayout>
       <div className={styles.container}>
-        <ListItem
-          // checked={checkedList.filter((item) => item.id === "0")[0]}
-          // onChangeCheckBox={() =>
-          //   const currentChecked = checkedList.filter((item) => item.id === "0")[0]
-          //   if(currentChecked){
-          //     // 리스트에서빼기
-          //   }else{
-          //     // 리스트에 추가하기
-          //   }
-          //   setCheckedList((checkedList) => [...checkedList, 0])
-          // }
-          badges={[
-            {
-              color: "red",
-              title: "Bug2",
-            },
-          ]}
-        />
+        {list.map((listItem, index) => (
+          <ListItem
+            key={index}
+            // checked={checkedList.filter((item) => item.id === "0")[0]}
+            // onChangeCheckBox={() =>
+            //   const currentChecked = checkedList.filter((item) => item.id === "0")[0]
+            //   if(currentChecked){
+            //     // 리스트에서빼기
+            //   }else{
+            //     // 리스트에 추가하기
+            //   }
+            //   setCheckedList((checkedList) => [...checkedList, 0])
+            // }
+            badges={[
+              {
+                color: "red",
+                title: "Bug2",
+              },
+            ]}
+          />
+        ))}
       </div>
     </div>
   );
 }
 
-function ListFilter() {
-  const [showModal, setShowModal] = useState(false);
-
+function ListFilter(onChangeFilter) {
   return (
     <>
       <div className={styles.filterLists}>
-        <ListFilterItem onClick={() => setShowModal(true)}>
-          Author
-        </ListFilterItem>
+        <ListFilterItem>Author</ListFilterItem>
         <ListFilterItem>Label</ListFilterItem>
         <ListFilterItem>Projects</ListFilterItem>
         <ListFilterItem>Milestines</ListFilterItem>
         <ListFilterItem>Assignee</ListFilterItem>
         <ListFilterItem>Sort</ListFilterItem>
       </div>
-      <Modal
-        opened={showModal}
-        onClose={() => setShowModal(false)}
-        placeholder="Filters labels"
-      />
     </>
   );
 }
 
-function ListFilterItem({ onClick, children }) {
+function ListFilterItem({ onClick, children, onChangeFilter }) {
+  const [showModal, setShowModal] = useState(false);
+
   return (
-    <span role="button" onClick={onClick}>
-      {children} ▾
-    </span>
+    <div className={styles.filterItem}>
+      <span role="button" onClick={() => setShowModal(true)}>
+        {children} ▾
+      </span>
+      <div className={styles.modalContainer}>
+        <Modal
+          opened={showModal}
+          onClose={() => setShowModal(false)}
+          placeholder="Filters labels"
+          searchDataList={["bug", "Labels", "Apple"]}
+          onClickCell={() => {
+            // 클릭된 정보를 통해 리스트 필터링
+            onChangeFilter();
+          }}
+        />
+      </div>
+    </div>
   );
 }
 
