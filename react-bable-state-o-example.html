@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script
+    crossorigin
+    src="https://unpkg.com/react@18/umd/react.development.js"
+    corossorigin
+  ></script>
+  <script
+    crossorigin
+    src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    corossorigin
+  ></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    let titleName = "I like Front-end";
+
+    /**
+     * State 특징
+     * - 전역적으로 사용할 수 없음, 하나의 컴포넌트 안에서만 사용할 수 있는 독립적인 상태입니다.
+     * */
+
+    const root = document.getElementById("root");
+
+    const ReactButton = () => (
+      <button onClick={(e) => clickdeButton(e.target.innerText)}>React</button>
+    );
+    const Angular = () => (
+      <button onClick={(e) => clickdeButton(e.target.innerText)}>
+        Angular
+      </button>
+    );
+    const Vue = () => (
+      <button onClick={(e) => clickdeButton(e.target.innerText)}>Vue</button>
+    );
+    const Svelte = () => (
+      <button onClick={(e) => clickdeButton(e.target.innerText)}>Svelte</button>
+    );
+
+    const Container = () => {
+      const [title, setTitle] = React.useState("I like Front-end");
+      // console.log(titleState[0]); // 초기값
+      // console.log(titleState[1]); // setState(원하는값) -> titleState[0]이 변경된다.
+
+      function clickdeButton(text) {
+        // text -> innerText
+        console.log("clicked: ", text);
+        setTitle(`I like ${text}`);
+      }
+
+      return (
+        <div>
+          <span>{title}</span>
+          <button onClick={(e) => clickdeButton(e.target.innerText)}>
+            React
+          </button>
+          <button onClick={(e) => clickdeButton(e.target.innerText)}>
+            Angular
+          </button>
+          <button onClick={(e) => clickdeButton(e.target.innerText)}>
+            Vue
+          </button>
+          <button onClick={(e) => clickdeButton(e.target.innerText)}>
+            Svelte
+          </button>
+        </div>
+      );
+    };
+
+    function render() {
+      ReactDOM.render(<Container />, root);
+    }
+
+    render();
+  </script>
+</html>
