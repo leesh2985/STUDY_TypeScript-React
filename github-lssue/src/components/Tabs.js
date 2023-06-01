@@ -1,46 +1,45 @@
-import { useState } from "react";
+import { useLocation, Link } from 'react-router-dom';
 
-import cx from "clsx";
-import styles from "./Tabs.module.css";
+import cx from 'clsx';
+import styles from './Tabs.module.css';
 
-const tabList = [
-  "Code",
-  "Issues",
-  "Pull requests",
-  // "Actions",
-  // "Projects",
-  // "Security",
-  // "Insights",
-  // "Setting",
+const TabList = [
+  { name: 'Code', pathname: '/code' },
+  { name: 'Issues', pathname: '/issue' },
+  { name: 'Pull Request', pathname: '/pulls' },
+  { name: 'Actions', pathname: '/actions' },
+  { name: 'Projects', pathname: '/projects' },
+  { name: 'Security', pathname: '/security' },
 ];
 
-export default function Tabs() {
-  const [selectedTabIdx, setSelectedTabIdx] = useState(0);
-
+function Tab({ item, selected, number }) {
   return (
-    <ul className={styles.tabList}>
-      {tabList.map((tab, idx) => (
-        <Tab
-          key={`${idx}`}
-          title={tab}
-          selected={selectedTabIdx === idx}
-          onClick={() => setSelectedTabIdx(idx)}
-        />
-      ))}
-    </ul>
+    <li>
+      <Link to={item.pathname} className={styles.link}>
+        <button
+          type="button"
+          className={cx(styles.tab, { [styles.selected]: selected })}
+        >
+          <span>{item.name}</span>
+          {number && <div className={styles.circle}>{number}</div>}
+        </button>
+      </Link>
+    </li>
   );
 }
 
-function Tab({ title, selected, onClick, number }) {
+export default function Tabs() {
+  const { pathname } = useLocation();
+
   return (
-    <li>
-      <button
-        onClick={onClick}
-        className={cx(styles.tab, { [styles.selected]: selected })}
-      >
-        <span>{title}</span>
-        {number && <div className={styles.circle}>{number}</div>}
-      </button>
-    </li>
+    <ul className={styles.tabList}>
+      {TabList.map((tab) => (
+        <Tab
+          key={tab.name}
+          item={tab}
+          selected={(pathname === '/' ? '/issue' : pathname) === tab.pathname}
+        />
+      ))}
+    </ul>
   );
 }

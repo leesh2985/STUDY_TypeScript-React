@@ -3,10 +3,14 @@
   border-radius: 6px;
   border: 1px solid #d0d7de;
   box-shadow: 0 8px 24px rgba(140, 149, 159, 0.2);
-  background: #fff;
   position: absolute;
   z-index: 99;
+  background: #ffffff;
   display: none;
+}
+
+.opened {
+  display: block;
 }
 
 .header {
@@ -27,15 +31,11 @@
   background: transparent;
 }
 
-.opened {
-  display: block;
-}
-
 .input {
   padding: 8px;
 }
 
-.input > input {
+.input > input{
   box-shadow: none;
   border: 1px solid #d0d7de;
   border-radius: 6px;

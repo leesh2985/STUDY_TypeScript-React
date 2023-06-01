@@ -1,25 +1,31 @@
-import styles from "./ListItem.module.css";
-import ListItemLayout from "./ListItemLayout";
-import Badge from "./Badge";
+import dayjs from 'dayjs';
+
+import Badge from './Badge';
+import ListItemLayout from './ListItemLayout';
+import styles from './ListItem.module.css';
 
 export default function ListItem({
   checked,
-  onChangeCheckBox,
+  onClickCheckBox,
   onClickTitle,
-  badges,
-  data
+  data,
 }) {
+  const isOpenState = data.state === 'open';
+  const badges = data.labels;
+  const state = isOpenState ? 'opened' : 'closed';
+  const date = isOpenState ? data.created_at : data.closed_at;
+
   return (
-    <ListItemLayout>
+    <ListItemLayout checked={checked} onClick={onClickCheckBox}>
       <div>
         <div role="button" onClick={onClickTitle} className={styles.title}>
           {data.title}
           {badges &&
-            badges.map((badgeProps, idx) => (
-              <Badge key={idx} {...badgeProps} />
-            ))}
+            badges.map((props) => <Badge {...props} key={props.name} />)}
         </div>
-        <div className={styles.description}># Description</div>
+        <div className={styles.description}>
+          #{data.number} {state} {dayjs(date).fromNow()} by {data.user.login}
+        </div>
       </div>
     </ListItemLayout>
   );

@@ -2,7 +2,7 @@
   padding: 8px 16px;
   border: 1px solid #d0d7de;
   border-bottom: none;
-  background: #fff;
+  background: #ffffff;
   display: flex;
 }
 
@@ -12,11 +12,11 @@
   border-bottom: 1px solid #d0d7de;
 }
 
-.wrapper:hover {
-  background: rgb(246, 248, 250);
-}
-
 .checkbox {
   margin-right: 8px;
   margin-top: 5px;
+}
+
+.wrapper:hover {
+  background: rgb(246, 248, 250);
 }
