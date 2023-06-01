@@ -1,5 +1,6 @@
 import styles from "./ListContainer.module.css";
 import Button from "./Button";
+import ListItem from "./ListItem";
 
 import { useState } from "react";
 
@@ -23,6 +24,9 @@ export default function ListContainer() {
         >
           New Issue
         </Button>
+      </div>
+      <div className={styles.container}>
+        <ListItem />
       </div>
     </div>
   );
