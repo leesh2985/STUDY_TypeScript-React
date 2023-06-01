@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script
+    crossorigin
+    src="https://unpkg.com/react@18/umd/react.development.js"
+    corossorigin
+  ></script>
+  <script
+    crossorigin
+    src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    corossorigin
+  ></script>
+  <script type="text/bable">
+    function clickdeButton() {
+      console.log("cick");
+    }
+
+    // dom -> script.
+    const root = document.getElementById("root");
+    //{ id: "react" }, "React" 버튼 이름 지정 및 텍스트 추가
+    const react = React.createElement(
+      "button",
+      { id: "react", onClick: clickdeButton },
+      "React"
+    ); // <button></button> 생겨남 -> root안에 넣을꺼임
+    const angular = React.createElement(
+      "button",
+      { id: "angular", onClick: clickdeButton },
+      "angular"
+    );
+    const vue = React.createElement(
+      "button",
+      { id: "vue", onClick: clickdeButton },
+      "vue"
+    );
+    const svelte = React.createElement(
+      "button",
+      { id: "svelte", onClick: clickdeButton },
+      "svelte"
+    );
+    const title = React.createElement(
+      "span",
+      { id: "title" },
+      "I like Front-end"
+    );
+
+    const container = React.createElement("div", null, [
+      title,
+      react,
+      angular,
+      vue,
+      svelte,
+    ]);
+
+    ReactDOM.render(container, root);
+  </script>
+</html>
