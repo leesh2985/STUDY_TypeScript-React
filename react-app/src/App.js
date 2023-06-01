@@ -9,6 +9,11 @@ import React, { useEffect, useState } from "react";
  * update (=특정 값이 변해서 리액트 컴포넌트가 다시 그려질때)
  */
 
+/** Hook
+ * 1. 최상위에서 호출되어야한다.
+ * 2. 오직 React함수에서만 hook을 호출해야한다.
+ */
+
 function App() {
   const [count, setCount] = useState(0);
 
