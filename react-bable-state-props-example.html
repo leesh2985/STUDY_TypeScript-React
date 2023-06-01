@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script
+    crossorigin
+    src="https://unpkg.com/react@18/umd/react.development.js"
+    corossorigin
+  ></script>
+  <script
+    crossorigin
+    src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    corossorigin
+  ></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    let titleName = "I like Front-end";
+
+    const root = document.getElementById("root");
+
+    // const ReactButton = () => (
+    //   <button onClick={(e) => clickdeButton(e.target.innerText)}>React</button>
+    // );
+    // const Angular = () => (
+    //   <button onClick={(e) => clickdeButton(e.target.innerText)}>
+    //     Angular
+    //   </button>
+    // );
+    // const Vue = () => (
+    //   <button onClick={(e) => clickdeButton(e.target.innerText)}>Vue</button>
+    // );
+    // const Svelte = () => (
+    //   <button onClick={(e) => clickdeButton(e.target.innerText)}>Svelte</button>
+    // );
+
+    const Title = (props) => <span>I like {props.titleProps}</span>;
+    const Button = (props) => (
+      <button
+        onClick={(e) => props.onClick(e.target.innerText)}
+        style={props.style}
+      >
+        {props.children}
+      </button>
+    );
+
+    // porps란
+    // 부모 컨포넌트가 자식 컴포넌트에게 전달해주는 데이터 property
+    const Container = () => {
+      const [title, setTitle] = React.useState("프론트");
+
+      function clickdeButton(text) {
+        console.log("clicked: ", text);
+        setTitle(text);
+      }
+
+      return (
+        <div>
+          <Title titleProps={title} />
+          <Button onClick={clickdeButton} style={{ fontSize: "20px" }}>
+            React
+          </Button>
+          <Button onClick={clickdeButton} style={{ color: "red" }}>
+            Angular
+          </Button>
+          <Button onClick={clickdeButton} style={{ fontSize: "12px" }}>
+            Vue
+          </Button>
+          <Button onClick={clickdeButton} style={{ color: "blue" }}>
+            Svelte
+          </Button>
+        </div>
+      );
+    };
+
+    function render() {
+      ReactDOM.render(<Container />, root);
+    }
+
+    render();
+  </script>
+</html>
