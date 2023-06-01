@@ -30,10 +30,6 @@
 .opened {
   display: block;
 }
-/* 
-
-
-
 
 .input {
   padding: 8px;
@@ -64,4 +60,4 @@
 .list {
   overflow: auto;
   max-height: 400px;
-} */
+}
