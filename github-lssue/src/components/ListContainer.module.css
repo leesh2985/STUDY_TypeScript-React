@@ -62,3 +62,8 @@
 .filterItem {
   position: relative;
 }
+
+.PaginationContainer {
+  display: flex;
+  justify-content: center;
+}

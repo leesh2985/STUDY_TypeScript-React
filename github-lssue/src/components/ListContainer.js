@@ -2,6 +2,7 @@ import cx from "clsx";
 import Button from "./Button";
 import ListItem from "./ListItem";
 import Modal from "./Modal";
+import Pagination from "./Pagination";
 
 import { useState } from "react";
 import ListItemLayout from "./ListItemLayout";
@@ -11,63 +12,73 @@ import styles from "./ListContainer.module.css";
 export default function ListContainer() {
   const [inputValue, setInputValue] = useState("is:issue is:open");
   const [list, setList] = useState([]);
-
-  // useEffect(() => {
-  //   console.log(inputValue);
-  // }, [inputValue]);
+  const [page, setPage] = useState(1);
 
   return (
-    <div className={styles.listContainer}>
-      <div className={styles.topSection}>
-        <input
-          className={styles.input}
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-        />
-        <Button
-          style={{ fontSize: "14px", backgroundColor: "green", color: "white" }}
-        >
-          New Issue
-        </Button>
-      </div>
-      <OpenClosedFilters />
-      <ListItemLayout className={styles.listFilter}>
-        <ListFilter
-          onChangeFilter={(filteredData) => {
-            //필터링된 요소에 맞게 데이터를 불러오기
-            // const data = getData('필터링된 정보')
-            // setList(data)
-          }}
-        />
-      </ListItemLayout>
-      <div className={styles.container}>
-        {list.map((listItem, index) => (
-          <ListItem
-            key={index}
-            // checked={checkedList.filter((item) => item.id === "0")[0]}
-            // onChangeCheckBox={() =>
-            //   const currentChecked = checkedList.filter((item) => item.id === "0")[0]
-            //   if(currentChecked){
-            //     // 리스트에서빼기
-            //   }else{
-            //     // 리스트에 추가하기
-            //   }
-            //   setCheckedList((checkedList) => [...checkedList, 0])
-            // }
-            badges={[
-              {
-                color: "red",
-                title: "Bug2",
-              },
-            ]}
+    <>
+      <div className={styles.listContainer}>
+        <div className={styles.topSection}>
+          <input
+            className={styles.input}
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
           />
-        ))}
+          <Button
+            style={{
+              fontSize: "14px",
+              backgroundColor: "green",
+              color: "white",
+            }}
+          >
+            New Issue
+          </Button>
+        </div>
+        <OpenClosedFilters />
+        <ListItemLayout className={styles.listFilter}>
+          <ListFilter
+            onChangeFilter={(filteredData) => {
+              //필터링된 요소에 맞게 데이터를 불러오기
+              // const data = getData('필터링된 정보')
+              // setList(data)
+            }}
+          />
+        </ListItemLayout>
+        <div className={styles.container}>
+          {list.map((listItem, index) => (
+            <ListItem
+              key={index}
+              // checked={checkedList.filter((item) => item.id === "0")[0]}
+              // onChangeCheckBox={() =>
+              //   const currentChecked = checkedList.filter((item) => item.id === "0")[0]
+              //   if(currentChecked){
+              //     // 리스트에서빼기
+              //   }else{
+              //     // 리스트에 추가하기
+              //   }
+              //   setCheckedList((checkedList) => [...checkedList, 0])
+              // }
+              badges={[
+                {
+                  color: "red",
+                  title: "Bug2",
+                },
+              ]}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+      <div className={styles.PaginationContainer}>
+        <Pagination
+          maxPage={10}
+          currentPage={page}
+          onClickPageButton={(number) => setPage(number)}
+        />
+      </div>
+    </>
   );
 }
 
-function ListFilter(onChangeFilter) {
+function ListFilter({ onChangeFilter }) {
   return (
     <>
       <div className={styles.filterLists}>
