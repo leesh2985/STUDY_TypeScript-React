@@ -40,19 +40,19 @@
     );
 
     const Container = () => {
-      const [title, setTitle] = React.useState("I like Front-end");
+      const [title, setTitle] = React.useState("Front-end");
       // console.log(titleState[0]); // 초기값
       // console.log(titleState[1]); // setState(원하는값) -> titleState[0]이 변경된다.
 
       function clickdeButton(text) {
         // text -> innerText
         console.log("clicked: ", text);
-        setTitle(`I like ${text}`);
+        setTitle(text);
       }
 
       return (
         <div>
-          <span>{title}</span>
+          <span>I like {title}</span>
           <button onClick={(e) => clickdeButton(e.target.innerText)}>
             React
           </button>
