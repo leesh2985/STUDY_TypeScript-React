@@ -28,10 +28,23 @@
     //   { id: "react", onClick: clickdeButton },
     //   "React"
     // );
-    const ReactButton = () => <button>React</button>; // 함수로 수정 변수명은 첫문자만 대문자로 교체
-    const Angular = () => <button>Angular</button>;
-    const Vue = () => <button>Vue</button>;
-    const Svelte = () => <button>Svelte</button>;
+    const ReactButton = () => (
+      <button
+        onClick={() => console.og("clicked")}
+        style={{ fontSize: "16px", color: "red" }} //스타일 넣는법
+      >
+        React
+      </button>
+    ); // 함수로 수정 변수명은 첫문자만 대문자로 교체
+    const Angular = () => (
+      <button onClick={() => console.og("clicked")}>Angular</button>
+    );
+    const Vue = () => (
+      <button onClick={() => console.og("clicked")}>Vue</button>
+    );
+    const Svelte = () => (
+      <button onClick={() => console.og("clicked")}>Svelte</button>
+    );
 
     // const container = React.createElement("div", null, [
     //   // title,
