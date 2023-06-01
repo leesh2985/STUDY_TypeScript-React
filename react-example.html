@@ -16,10 +16,26 @@
   <script>
     // dom -> script.
     const root = document.getElementById("root");
-    const react = React.createElement("button", { id: "react" }, "React"); // <button></button> 생겨남 -> root안에 넣을꺼임
     //{ id: "react" }, "React" 버튼 이름 지정 및 텍스트 추가
+    const react = React.createElement("button", { id: "react" }, "React"); // <button></button> 생겨남 -> root안에 넣을꺼임
+    const angular = React.createElement("button", { id: "angular" }, "angular");
+    const vue = React.createElement("button", { id: "vue" }, "vue");
+    const svelte = React.createElement("button", { id: "svelte" }, "svelte");
+    const title = React.createElement(
+      "span",
+      { id: "title" },
+      "I like Front-end"
+    );
+
+    const container = React.createElement("div", null, [
+      title,
+      react,
+      angular,
+      vue,
+      svelte,
+    ]); //<div></div>생성 -> div안에 버튼 넣어줄꺼
 
     // UI에 표현하는 역활 -> React DOM
-    ReactDOM.render(react, root); // root안에 버튼 넣음 -> style 넣을꺼임
+    ReactDOM.render(container, root); // root안에 버튼 넣음 -> style 넣을꺼임
   </script>
 </html>
