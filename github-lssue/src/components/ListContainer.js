@@ -1,31 +1,29 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-import cx from "clsx";
+import { useState } from "react";
+import { useSearchParams, Link } from "react-router-dom";
 
-import Button from "./Button";
-import ListItem from "./ListItem";
-import ListFilter from "./ListFilter";
-import ListItemLayout from "./ListItemLayout";
-// import Modal from "./Modal";
-import Pagination from "./Pagination";
+import Button from "./components/Button";
+import ListItem from "./components/ListItem";
+import ListItemLayout from "./components/ListItemLayout";
+import Pagination from "./components/Pagination";
+import OpenClosedFilters from "./components/OpenClosedFilters";
+import ListFilter from "./components/ListFilter";
+import { useIssueList } from "./hooks";
 
 import styles from "./ListContainer.module.css";
 
-export default function ListContainer() {
-  const [inputValue, setInputValue] = useState("is:issue is:open");
-  const [list, setList] = useState([]);
-  const [page, setPage] = useState(1);
-  const maxPage = 10;
+const MAX_PAGE = 10;
 
-  async function getData() {
-    const { data } = await axios.get(
-      `https://api.github.com/repos/fecebook/react/issues`
-    );
-    setList(data);
-  }
-  useEffect(() => {
-    getData();
-  }, []); // componentDidMount()
+export default function ListContainer() {
+  const [inputValue, setInputValue] = useState("is:pr is:open ");
+  const [checked, setChecked] = useState(false);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const page = parseInt(searchParams.get("page") ?? "1", 10);
+  const state = searchParams.get("state");
+
+  // 강의때 진행했던 getData로직을 react query로 개선한 부분입니다 :)
+  const { data: list } = useIssueList(searchParams);
 
   return (
     <>
@@ -36,87 +34,46 @@ export default function ListContainer() {
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
           />
-          <Button
-            style={{
-              fontSize: "14px",
-              backgroundColor: "green",
-              color: "white",
-            }}
-          >
-            New Issue
-          </Button>
+          <Link to="/new" className={styles.link}>
+            <Button
+              style={{
+                fontSize: "14px",
+                backgroundColor: "green",
+                color: "white",
+              }}
+            >
+              New Issue
+            </Button>
+          </Link>
         </div>
-        <OpenClosedFilters />
+        <OpenClosedFilters
+          isOpenMode={state !== "closed"}
+          onClickMode={(mode) => setSearchParams({ state: mode })}
+        />
         <div className={styles.container}>
-        <ListItemLayout className={styles.listFilter}>
-          <ListFilter
-            onChangeFilter={(filteredData) => {
-              //필터링된 요소에 맞게 데이터를 불러오기
-              // const data = getData('필터링된 정보')
-              // setList(data)
-            }}
-          />
-        </ListItemLayout>     
-        <ListItem
-        data={item}
-              checked={checked}
-              onClickCheckBox={()=> setChecked((checked)=> !checked)}
-              badges={[
-                {
-                  title: "Bug",
-                  color: "red",
-                },
-              ]}
-            />
+          <ListItemLayout className={styles.listFilter}>
+            <ListFilter onChangeFilter={(params) => setSearchParams(params)} />
+          </ListItemLayout>
+          {list &&
+            list.map((item) => (
+              <ListItem
+                data={item}
+                key={item.id}
+                checked={checked}
+                onClickCheckBox={() => setChecked((c) => !c)}
+              />
+            ))}
         </div>
       </div>
-      <div className={styles.PaginationContainer}>
+      <div className={styles.paginationContainer}>
         <Pagination
-          maxPage={10}
           currentPage={page}
-          onClickPageButton={(number) => setPage(number)}
+          onClick={(pageNumber) =>
+            setSearchParams({ page: pageNumber.toString() })
+          }
+          maxPage={MAX_PAGE}
         />
       </div>
     </>
-  );
-}
-
-function OpenClosedFilters({ data }) {
-  const [isOpenMode, setIsOpenMode] = useState(true);
-
-  // const data = getData();
-  // const opendDate = date.filter((d) => d.state ==='open);
-  // const closeddDate = date.filter((d) => d.state ==='closed');
-  const openModeDataSize = 1;
-  const closeModeDataSize = 2;
-
-  return (
-    <>
-      <OpenClosedFilter
-        size={openModeDataSize}
-        state="Open"
-        selected={isOpenMode}
-        onClick={() => setIsOpenMode(true)}
-      />
-      <OpenClosedFilter
-        size={closeModeDataSize}
-        state="Closed"
-        selected={!isOpenMode}
-        onClick={() => setIsOpenMode(false)}
-      />
-    </>
-  );
-}
-
-function OpenClosedFilter({ size, state, onClick, selected }) {
-  return (
-    <span
-      role="button"
-      className={cx(styles.textFilter, { [styles.selected]: selected })}
-      onClick={onClick}
-    >
-      {size}
-      {state}
-    </span>
   );
 }

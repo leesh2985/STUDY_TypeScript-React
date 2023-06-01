@@ -1,20 +1,12 @@
 .listContainer {
   padding: 0 32px;
   margin-top: 24px;
-  height: 220px;
 }
 
 .topSection {
   display: flex;
   flex-direction: "space-between";
   margin-bottom: 20px;
-}
-
-.listFilter {
-  margin-top: 20px;
-  border-top-left-radius: 6px;
-  border-top-right-radius: 6px;
-  background: rgb(246, 248, 250);
 }
 
 .input {
@@ -28,16 +20,32 @@
   box-shadow: none;
 }
 
-.textFilter {
-  margin-right: 8px;
-  cursor: pointer;
+.input:focus {
+  background: #ffffff;
 }
 
-.selected {
-  font-weight: 800;
+.container {
+  margin-top: 20px;
 }
 
-.PaginationContainer {
+.listFilter {
+  border: 1px solid #d0d7de;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  border-bottom: none;
+  background: rgb(246, 248, 250);
+  padding: 16px;
+}
+
+.wrapperCustom:hover {
+  background: rgb(246, 248, 250);
+}
+
+.paginationContainer {
   display: flex;
   justify-content: center;
+}
+
+.link {
+  text-decoration: none;
 }
