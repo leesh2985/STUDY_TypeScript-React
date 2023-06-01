@@ -1,7 +1,8 @@
 import cx from "clsx";
 import Button from "./Button";
 import ListItem from "./ListItem";
-import Modal from "./Modal";
+import ListFilter from "./ListFilter";
+
 import Pagination from "./Pagination";
 
 import { useState } from "react";
@@ -75,45 +76,6 @@ export default function ListContainer() {
         />
       </div>
     </>
-  );
-}
-
-function ListFilter({ onChangeFilter }) {
-  return (
-    <>
-      <div className={styles.filterLists}>
-        <ListFilterItem>Author</ListFilterItem>
-        <ListFilterItem>Label</ListFilterItem>
-        <ListFilterItem>Projects</ListFilterItem>
-        <ListFilterItem>Milestines</ListFilterItem>
-        <ListFilterItem>Assignee</ListFilterItem>
-        <ListFilterItem>Sort</ListFilterItem>
-      </div>
-    </>
-  );
-}
-
-function ListFilterItem({ onClick, children, onChangeFilter }) {
-  const [showModal, setShowModal] = useState(false);
-
-  return (
-    <div className={styles.filterItem}>
-      <span role="button" onClick={() => setShowModal(true)}>
-        {children} ▾
-      </span>
-      <div className={styles.modalContainer}>
-        <Modal
-          opened={showModal}
-          onClose={() => setShowModal(false)}
-          placeholder="Filters labels"
-          searchDataList={["bug", "Labels", "Apple"]}
-          onClickCell={() => {
-            // 클릭된 정보를 통해 리스트 필터링
-            onChangeFilter();
-          }}
-        />
-      </div>
-    </div>
   );
 }
 
