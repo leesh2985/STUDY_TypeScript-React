@@ -1,6 +1,7 @@
 import cx from "clsx";
 import Button from "./Button";
 import ListItem from "./ListItem";
+import Modal from "./Modal";
 
 import { useState } from "react";
 import ListItemLayout from "./ListItemLayout";
@@ -57,14 +58,23 @@ export default function ListContainer() {
 }
 
 function ListFilter() {
-  <div className={styles.filterLists}>
-    <ListFilterItem>Author</ListFilterItem>
-    <ListFilterItem>Label</ListFilterItem>
-    <ListFilterItem>Projects</ListFilterItem>
-    <ListFilterItem>Milestines</ListFilterItem>
-    <ListFilterItem>Assignee</ListFilterItem>
-    <ListFilterItem>Sort</ListFilterItem>
-  </div>;
+  const [showModal, setShowModal] = useState(false);
+
+  return (
+    <>
+      <div className={styles.filterLists}>
+        <ListFilterItem onClick={() => setShowModal(true)}>
+          Author
+        </ListFilterItem>
+        <ListFilterItem>Label</ListFilterItem>
+        <ListFilterItem>Projects</ListFilterItem>
+        <ListFilterItem>Milestines</ListFilterItem>
+        <ListFilterItem>Assignee</ListFilterItem>
+        <ListFilterItem>Sort</ListFilterItem>
+      </div>
+      <Modal opened={showModal} onClose={() => setShowModal(false)} />
+    </>
+  );
 }
 
 function ListFilterItem({ onClick, children }) {
