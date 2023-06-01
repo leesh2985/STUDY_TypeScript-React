@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-import styles from "./Tabs.module.css";
 import cx from "clsx";
+import styles from "./Tabs.module.css";
 
 const tabList = [
   "Code",
