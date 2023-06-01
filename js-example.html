@@ -1,10 +1,25 @@
 <!DOCTYPE html>
 <html>
   <body>
+    <span id="title">I like Front-end</span>
     <button id="React">React</button>
     <button id="Angular">Angular</button>
     <button id="Vue">Vue</button>
     <button id="Svelte">Svelte</button>
   </body>
-  <script></script>
+  <script>
+    const react = document.getElementById("React");
+    const angular = document.getElementById("Angular");
+    const vue = document.getElementById("Vue");
+    const svelte = document.getElementById("Svelte");
+
+    function clicked(text) {
+      console.log("cliked", text);
+    }
+
+    react.addEventListener("click", (e) => clicked(e));
+    angular.addEventListener("click", clicked);
+    vue.addEventListener("click", clicked);
+    svelte.addEventListener("click", clicked);
+  </script>
 </html>
