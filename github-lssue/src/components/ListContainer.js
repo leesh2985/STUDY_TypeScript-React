@@ -3,6 +3,7 @@ import Button from "./Button";
 import ListItem from "./ListItem";
 
 import { useState } from "react";
+import ListItemLayout from "./ListItemLayout";
 
 export default function ListContainer() {
   const [inputValue, setInputValue] = useState("is:issue is:open");
@@ -25,6 +26,16 @@ export default function ListContainer() {
           New Issue
         </Button>
       </div>
+      <ListItemLayout className={styles.listFilter}>
+        <div className={styles.filterLists}>
+          <span>Author</span>
+          <span>Label</span>
+          <span>Projects</span>
+          <span>Milestines</span>
+          <span>Assignee</span>
+          <span>Sort</span>
+        </div>
+      </ListItemLayout>
       <div className={styles.container}>
         <ListItem />
       </div>
