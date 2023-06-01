@@ -1,12 +1,13 @@
+import { useState, useEffect } from "react";
+import axios from "axios";
 import cx from "clsx";
+
 import Button from "./Button";
 import ListItem from "./ListItem";
 import ListFilter from "./ListFilter";
-
-import Pagination from "./Pagination";
-
-import { useState } from "react";
 import ListItemLayout from "./ListItemLayout";
+// import Modal from "./Modal";
+import Pagination from "./Pagination";
 
 import styles from "./ListContainer.module.css";
 
@@ -14,6 +15,17 @@ export default function ListContainer() {
   const [inputValue, setInputValue] = useState("is:issue is:open");
   const [list, setList] = useState([]);
   const [page, setPage] = useState(1);
+  const maxPage = 10;
+
+  async function getData() {
+    const { data } = await axios.get(
+      `https://api.github.com/repos/fecebook/react/issues`
+    );
+    setList(data);
+  }
+  useEffect(() => {
+    getData();
+  }, []); // componentDidMount()
 
   return (
     <>
@@ -35,6 +47,7 @@ export default function ListContainer() {
           </Button>
         </div>
         <OpenClosedFilters />
+        <div className={styles.container}>
         <ListItemLayout className={styles.listFilter}>
           <ListFilter
             onChangeFilter={(filteredData) => {
@@ -43,29 +56,18 @@ export default function ListContainer() {
               // setList(data)
             }}
           />
-        </ListItemLayout>
-        <div className={styles.container}>
-          {list.map((listItem, index) => (
-            <ListItem
-              key={index}
-              // checked={checkedList.filter((item) => item.id === "0")[0]}
-              // onChangeCheckBox={() =>
-              //   const currentChecked = checkedList.filter((item) => item.id === "0")[0]
-              //   if(currentChecked){
-              //     // 리스트에서빼기
-              //   }else{
-              //     // 리스트에 추가하기
-              //   }
-              //   setCheckedList((checkedList) => [...checkedList, 0])
-              // }
+        </ListItemLayout>     
+        <ListItem
+        data={item}
+              checked={checked}
+              onClickCheckBox={()=> setChecked((checked)=> !checked)}
               badges={[
                 {
+                  title: "Bug",
                   color: "red",
-                  title: "Bug2",
                 },
               ]}
             />
-          ))}
         </div>
       </div>
       <div className={styles.PaginationContainer}>
