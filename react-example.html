@@ -14,13 +14,34 @@
     corossorigin
   ></script>
   <script>
+    // 인라인으로 가능 onClick: () => console.log("cick")
+    function clickdeButton() {
+      console.log("cick");
+    }
+
     // dom -> script.
     const root = document.getElementById("root");
     //{ id: "react" }, "React" 버튼 이름 지정 및 텍스트 추가
-    const react = React.createElement("button", { id: "react" }, "React"); // <button></button> 생겨남 -> root안에 넣을꺼임
-    const angular = React.createElement("button", { id: "angular" }, "angular");
-    const vue = React.createElement("button", { id: "vue" }, "vue");
-    const svelte = React.createElement("button", { id: "svelte" }, "svelte");
+    const react = React.createElement(
+      "button",
+      { id: "react", onClick: clickdeButton },
+      "React"
+    ); // <button></button> 생겨남 -> root안에 넣을꺼임
+    const angular = React.createElement(
+      "button",
+      { id: "angular", onClick: clickdeButton },
+      "angular"
+    );
+    const vue = React.createElement(
+      "button",
+      { id: "vue", onClick: clickdeButton },
+      "vue"
+    );
+    const svelte = React.createElement(
+      "button",
+      { id: "svelte", onClick: clickdeButton },
+      "svelte"
+    );
     const title = React.createElement(
       "span",
       { id: "title" },
