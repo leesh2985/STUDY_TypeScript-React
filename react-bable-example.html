@@ -13,48 +13,42 @@
     src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
     corossorigin
   ></script>
-  <script type="text/bable">
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script>
+    //type="text/bable"
     function clickdeButton() {
       console.log("cick");
     }
 
-    // dom -> script.
     const root = document.getElementById("root");
-    //{ id: "react" }, "React" 버튼 이름 지정 및 텍스트 추가
-    const react = React.createElement(
-      "button",
-      { id: "react", onClick: clickdeButton },
-      "React"
-    ); // <button></button> 생겨남 -> root안에 넣을꺼임
-    const angular = React.createElement(
-      "button",
-      { id: "angular", onClick: clickdeButton },
-      "angular"
-    );
-    const vue = React.createElement(
-      "button",
-      { id: "vue", onClick: clickdeButton },
-      "vue"
-    );
-    const svelte = React.createElement(
-      "button",
-      { id: "svelte", onClick: clickdeButton },
-      "svelte"
-    );
-    const title = React.createElement(
-      "span",
-      { id: "title" },
-      "I like Front-end"
+
+    const Title = () => <span>I like Front-end</span>;
+    // const react = React.createElement(
+    //   "button",
+    //   { id: "react", onClick: clickdeButton },
+    //   "React"
+    // );
+    const ReactButton = () => <button>React</button>; // 함수로 수정 변수명은 첫문자만 대문자로 교체
+    const Angular = () => <button>Angular</button>;
+    const Vue = () => <button>Vue</button>;
+    const Svelte = () => <button>Svelte</button>;
+
+    // const container = React.createElement("div", null, [
+    //   // title,
+    //   react,
+    //   angular,
+    //   vue,
+    //   svelte,
+    // ]);
+    const Container = () => (
+      <div>
+        <ReactButton />
+        <Angular />
+        <Vue />
+        <Svelte />
+      </div>
     );
 
-    const container = React.createElement("div", null, [
-      title,
-      react,
-      angular,
-      vue,
-      svelte,
-    ]);
-
-    ReactDOM.render(container, root);
+    ReactDOM.render(<Container />, root);
   </script>
 </html>
