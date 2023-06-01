@@ -15,11 +15,12 @@
 
     function clicked(text) {
       console.log("cliked", text);
+      title.innerText = `I like ${text}`;
     }
 
-    react.addEventListener("click", (e) => clicked(e));
-    angular.addEventListener("click", clicked);
-    vue.addEventListener("click", clicked);
-    svelte.addEventListener("click", clicked);
+    react.addEventListener("click", (e) => clicked(e.target.innerText));
+    angular.addEventListener("click", (e) => clicked(e.target.innerText));
+    vue.addEventListener("click", (e) => clicked(e.target.innerText));
+    svelte.addEventListener("click", (e) => clicked(e.target.innerText));
   </script>
 </html>
